@@ -46,6 +46,9 @@ function App() {
             "onConnect",
             "postMessage",
             "onMessage",
+            "onEngagementEnd",
+            "onEngagementContextChange",
+            "getEngagementContext",
 
             // in-client api and event
             "authorize",
@@ -68,6 +71,28 @@ function App() {
         zoomSdk.onShareApp((data) => {
           console.log(data);
         });
+  	    zoomSdk.addEventListener("onEngagementEnd", (message) => {
+	        console.log("onEngagementEnd event:");
+	        console.log(message);
+	      });
+
+    	  zoomSdk.addEventListener("onMessage", (event) => {
+	        console.log("onMessage event");
+	      });
+	      console.log("onMessage event installed!");
+
+	      zoomSdk.addEventListener("onEngagementContextChange", (message) => {
+	        console.log("onEngagementContextChange event:");
+	        console.log(message);
+	      });
+	      console.log("Engagment handlers installed!");
+
+	      async function DisplayInfo(){
+	        let result = await zoomSdk.getEngagementContext();
+	        let engagementContext = result.engagement;
+	        console.log(JSON.stringify(engagementContext));
+	      };
+	      DisplayInfo();
       } catch (error) {
         console.log(error);
         setError("There was an error configuring the JS SDK");
