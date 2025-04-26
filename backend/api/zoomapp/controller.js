@@ -22,6 +22,9 @@ module.exports = {
       req.session.state = zoomInClientState
 
       console.log('3. Return code challenge and state to frontend')
+      console.log('codeVerifier:', codeVerifier);
+      console.log('codeChallenge:', codeChallenge);
+      console.log('state:', zoomInClientState);
       return res.json({
         codeChallenge,
         state: zoomInClientState,

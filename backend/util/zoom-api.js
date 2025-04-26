@@ -30,6 +30,35 @@ const getZoomAccessToken = async (
     },
     data: tokenRequestParamString,
   })
+/*
+  console.log("Authorization code:", zoomAuthorizationCode);
+  console.log("Code verifier:", pkceVerifier);
+  let buff = Buffer.from(process.env.ZOOM_APP_CLIENT_ID + ":" + process.env.ZOOM_APP_CLIENT_SECRET);
+  let base64data = buff.toString('base64');
+  const url = process.env.ZOOM_HOST + "/oauth/token";
+  const config = {
+      headers: {
+          'Content-Type': "application/x-www-form-urlencoded",
+          'Authorization': "Basic " + base64data
+      }
+  };
+  const data = {
+      'code_verifier': pkceVerifier,
+      'code': zoomAuthorizationCode,
+      'grant_type': 'authorization_code',
+      'redirect_uri': process.env.ZOOM_APP_REDIRECT_URI
+  }
+  try {
+    let result = await axios.post (url, data, config);
+    console.log(result.data);
+    return result;
+  } catch (e) {
+    console.error(e);
+    //throw e;
+  }
+*/
+
+
 }
 
 const refreshZoomAccessToken = async (zoomRefreshToken) => {
@@ -50,6 +79,7 @@ const refreshZoomAccessToken = async (zoomRefreshToken) => {
 const getZoomUser = async (accessToken) => {
   return await axios({
     url: `${process.env.ZOOM_HOST}/v2/users/me`,
+//    url: `${process.env.ZOOM_URL}/v2/users/me`,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
